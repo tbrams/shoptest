@@ -38,9 +38,13 @@ class Products with ChangeNotifier {
     ),
   ];
 
-// Getter returning a copy of the data instead of giving access to references
+  // Getter returning a copy of the data instead of giving access to references
   List<Product> get items {
     return [..._items];
+  }
+
+  List<Product> get favouriteItems {
+    return _items.where((prodItem) => prodItem.isFavourite).toList();
   }
 
   Product findById(String id) {
