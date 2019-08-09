@@ -4,26 +4,33 @@ import 'package:provider/provider.dart';
 import './screens/product_details_screen.dart';
 import './screens/products_overview_screen.dart';
 import './providers/products.dart';
+import './providers/cart.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: Products(),  // Provide an instance of this class
-          child: MaterialApp(
-        title: 'Flutter Shop',
-        theme: ThemeData(
-          primarySwatch: Colors.purple,
-          accentColor: Colors.deepOrange,
-          fontFamily: 'Lato',
+    return MultiProvider(
+      providers: <SingleChildCloneableWidget>[
+        ChangeNotifierProvider.value(
+          value: Products(),
         ),
-        home: ProducsOverviewScreen(),
-        routes:{
+        ChangeNotifierProvider.value(
+          value: Cart(),
+        ),
+      ], 
+      child: MaterialApp(
+          title: 'Flutter Shop',
+          theme: ThemeData(
+            primarySwatch: Colors.purple,
+            accentColor: Colors.deepOrange,
+            fontFamily: 'Lato',
+          ),
+          home: ProducsOverviewScreen(),
+          routes: {
             ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-        }
-      ),
+          }),
     );
   }
 }
